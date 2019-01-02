@@ -1,9 +1,11 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, dialog, Menu, MenuItem } = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+
 
 function createWindow () {
   // Create the browser window.
@@ -13,7 +15,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -23,6 +25,104 @@ function createWindow () {
     mainWindow = null
   })
 }
+
+const template = [
+    {
+     label: 'File',
+     submenu: [
+        {
+            label:"New File",
+            role: 'New File'
+        },
+        {
+           role: 'Open File'
+        },
+        {
+           type: 'separator'
+        },
+        {
+           role: 'close'
+        },
+     ]
+  },
+  {
+     label: 'Edit',
+     submenu: [
+        {
+           role: 'undo'
+        },
+        {
+           role: 'redo'
+        },
+        {
+           type: 'separator'
+        },
+        {
+           role: 'cut'
+        },
+        {
+           role: 'copy'
+        },
+        {
+           role: 'paste'
+        }
+     ]
+  },
+  
+  {
+     label: 'View',
+     submenu: [
+        {
+           role: 'reload'
+        },
+        {
+           role: 'toggledevtools'
+        },
+        {
+           type: 'separator'
+        },
+        {
+           role: 'resetzoom'
+        },
+        {
+           role: 'zoomin'
+        },
+        {
+           role: 'zoomout'
+        },
+        {
+           type: 'separator'
+        },
+        {
+           role: 'togglefullscreen'
+        }
+     ]
+  },
+  
+  {
+     role: 'window',
+     submenu: [
+        {
+           role: 'minimize'
+        },
+        {
+           role: 'close'
+        }
+     ]
+  },
+  
+  {
+     role: 'help',
+     submenu: [
+        {
+           label: 'Learn More'
+        }
+     ]
+  }
+]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
