@@ -49,7 +49,7 @@ module.exports = function(mainWindow){
          submenu: [
             {
                 label: 'Clear Recents',
-                click () { mainWindow.webContents.send('open-file', 'Hello World!'); }
+                click () { mainWindow.webContents.send('clear-recents', 'Hello World!'); }
              },
             {
                role: 'reload'

@@ -20,6 +20,7 @@
     "electron": "^3.0.7"
   },
   "dependencies": {
+    "lowdb": "^1.0.0",
     "notifyjs": "^3.0.0",
     "simplemde": "^1.11.2"
   }
