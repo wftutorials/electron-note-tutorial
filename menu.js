@@ -61,13 +61,8 @@ module.exports = function(mainWindow){
                type: 'separator'
             },
             {
-               role: 'resetzoom'
-            },
-            {
-               role: 'zoomin'
-            },
-            {
-               role: 'zoomout'
+                label: 'Toogle Recents',
+                click () { mainWindow.webContents.send('toogle-recents', 'Hello World!'); }
             },
             {
                type: 'separator'
