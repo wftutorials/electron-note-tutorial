@@ -18,6 +18,8 @@ db.defaults({ files: [], count: 0 })
 let Notify = require('notifyjs');
 const fs = require('fs');
 
+const SimpleMDE = require("simplemde");
+
 let saveButton = $("#save-file");
 let alertBar = $("#alert");
 let createFileView = $("#create-file-view");
@@ -33,27 +35,25 @@ var simplemde = new SimpleMDE({ element: document.getElementById("text-area") })
 var headerTitle = $("#file-name");
  
 electron.ipcRenderer.on('new-file', (event, arg) => {
-  // Get the current Vue instance (i.e. which component/route is currently active)
    var filename = openSaveDialog("");
-   saveFile(filename);
+   if(filename !== null && filename!==""){
+    saveFile(filename);
+   }
 
 });
 
 electron.ipcRenderer.on('open-file', (event, arg) => {
-    // Get the current Vue instance (i.e. which component/route is currently active)
      var filename = openSelectFileDialog();
      openFile(filename);
   
 });
 
-electron.ipcRenderer.on('toogle-recents', (event, arg) => {
-    // Get the current Vue instance (i.e. which component/route is currently active)
+electron.ipcRenderer.on('toggle-recents', (event, arg) => {
     $("#wrapper").toggleClass("toggled");
   
 });
 
 electron.ipcRenderer.on('clear-recents', (event, arg) => {
-    // Get the current Vue instance (i.e. which component/route is currently active)
     removeAllRecentFiles();
     getRecentFiles();
   
@@ -164,7 +164,7 @@ function renameFile(filename){
 
 function openSaveDialog(df){
     var filename= dialog.showSaveDialog(
-        { defaultPath: df, properties: ['selectFile', 'multiSelections'] });
+        { defaultPath: df, properties: ['selectFile'] });
     setActiveFile(filename);
     return filename;
 }
@@ -290,7 +290,7 @@ function createRecentFilesView(data){
         </a></li>`;
     for (var i = 0; i < data.length; i++) {
         var obj = data[i];
-        output += addDataTotemplate(template, obj.name, obj.path );
+        output += addDataTotemplate(template, shortenText(obj.name), obj.path );
     }
     return output;
 }
@@ -304,6 +304,13 @@ function addDataTotemplate(temp, name, locale){
 function removeAllRecentFiles(){
     db.get('files')
   .remove().write();
+}
+
+function shortenText(string){
+    if(string.length > 15) {
+        string = string.substring(0,15)+"...";
+    }
+    return string;
 }
 
 

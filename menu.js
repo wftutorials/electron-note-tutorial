@@ -6,11 +6,11 @@ module.exports = function(mainWindow){
          submenu: [
             {
                 label:"New File",
-                click () { mainWindow.webContents.send('new-file', 'Hello World!'); }
+                click () { mainWindow.webContents.send('new-file'); }
             },
             {
                label: 'Open File',
-               click () { mainWindow.webContents.send('open-file', 'Hello World!'); }
+               click () { mainWindow.webContents.send('open-file'); }
             },
             {
                type: 'separator'
@@ -61,8 +61,8 @@ module.exports = function(mainWindow){
                type: 'separator'
             },
             {
-                label: 'Toogle Recents',
-                click () { mainWindow.webContents.send('toogle-recents', 'Hello World!'); }
+                label: 'Toggle Recents',
+                click () { mainWindow.webContents.send('toggle-recents', 'Hello World!'); }
             },
             {
                type: 'separator'
@@ -90,7 +90,7 @@ module.exports = function(mainWindow){
          submenu: [
             {
                label: 'Learn More',
-               click () { require('electron').shell.openExternal('https://electronjs.org') }
+               click () { require('electron').shell.openExternal('https://github.com/wyntonfranklin/electron-tutorial') }
             }
          ]
       }

@@ -16,7 +16,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+ // mainWindow.webContents.openDevTools()
 
   // create menu
   template = require('./menu.js')(mainWindow);
